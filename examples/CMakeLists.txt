@@ -8,17 +8,17 @@ if (MSVC)
 else ()
 	add_executable(helloworld helloworld.cpp)
 	target_link_libraries(helloworld ${Boost_LIBRARIES})
-	target_link_libraries(helloworld ${CMAKE_THREAD_LIBS_INIT})
+	target_link_libraries(helloworld ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_DL_LIBS})
 
 if (OPENSSL_FOUND)
 	add_executable(example_ssl ssl/example_ssl.cpp)
 	target_link_libraries(example_ssl ${Boost_LIBRARIES})
-	target_link_libraries(example_ssl ${CMAKE_THREAD_LIBS_INIT} ${OPENSSL_LIBRARIES})
+	target_link_libraries(example_ssl ${CMAKE_THREAD_LIBS_INIT} ${OPENSSL_LIBRARIES} ${CMAKE_DL_LIBS})
 endif()
 
 add_executable(example_websocket websocket/example_ws.cpp)
 target_link_libraries(example_websocket ${Boost_LIBRARIES})
-target_link_libraries(example_websocket ${CMAKE_THREAD_LIBS_INIT} ${OPENSSL_LIBRARIES})
+target_link_libraries(example_websocket ${CMAKE_THREAD_LIBS_INIT} ${OPENSSL_LIBRARIES} ${CMAKE_DL_LIBS})
 add_custom_command(OUTPUT ws.html
     COMMAND ${CMAKE_COMMAND} -E
     copy ${PROJECT_SOURCE_DIR}/websocket/templates/ws.html ${CMAKE_CURRENT_BINARY_DIR}/templates/ws.html
@@ -29,7 +29,7 @@ add_custom_target(example_ws_copy ALL DEPENDS ws.html)
 add_executable(example example.cpp)
 #target_link_libraries(example crow)
 target_link_libraries(example ${Boost_LIBRARIES})
-target_link_libraries(example ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(example ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_DL_LIBS})
 
 if (Tcmalloc_FOUND)
 	target_link_libraries(example ${Tcmalloc_LIBRARIES})
@@ -39,7 +39,7 @@ add_executable(example_with_all example_with_all.cpp)
 add_dependencies(example_with_all amalgamation)
 #target_link_libraries(example crow)
 target_link_libraries(example_with_all ${Boost_LIBRARIES})
-target_link_libraries(example_with_all ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(example_with_all ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_DL_LIBS})
 
 add_custom_command(OUTPUT example_test.py
 	COMMAND ${CMAKE_COMMAND} -E
@@ -50,7 +50,7 @@ add_custom_target(example_copy ALL DEPENDS example_test.py)
 
 add_executable(example_chat example_chat.cpp)
 target_link_libraries(example_chat ${Boost_LIBRARIES})
-target_link_libraries(example_chat ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(example_chat ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_DL_LIBS})
 add_custom_command(OUTPUT example_chat.html
 	COMMAND ${CMAKE_COMMAND} -E
 	copy ${PROJECT_SOURCE_DIR}/example_chat.html ${CMAKE_CURRENT_BINARY_DIR}/example_chat.html
