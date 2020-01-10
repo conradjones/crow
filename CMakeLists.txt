@@ -58,7 +58,7 @@ else()
 	add_test(NAME crow_test COMMAND ${CMAKE_CURRENT_BINARY_DIR}/tests/unittest)
 	add_test(NAME template_test COMMAND ${CMAKE_CURRENT_BINARY_DIR}/tests/template/test.py WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/tests/template)
 
-	file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/amalgamate)
+endif()
 
 	add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/amalgamate/crow_all.h
 		COMMAND python ${PROJECT_SOURCE_DIR}/amalgamate/merge_all.py ${PROJECT_SOURCE_DIR}/include ${CMAKE_CURRENT_BINARY_DIR}/amalgamate/crow_all.h
@@ -68,4 +68,3 @@ else()
 	)
 
 	add_custom_target(amalgamation ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/amalgamate/crow_all.h)
-endif()
